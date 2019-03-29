@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+require("dotenv").config();
 const bcrypt    = require('bcryptjs');
 
 
@@ -17,7 +18,7 @@ const User = require('./models/User');
 const Course = require('./models/Courses');
 
 // DB config
-const db = require('./config/keys').MongoURI;
+const db = process.env.MONGO_URI;
 
 //Connnect to Mongo
 mongoose.connect(db, { useNewUrlParser: true })
@@ -64,7 +65,7 @@ app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/course', require('./routes/course'));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
     console.log(`The server is running on port ${PORT}`);
