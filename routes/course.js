@@ -7,7 +7,15 @@ const User = require("../models/User");
 //     res.send("Coures page");
 // })
 
-router.get("/form", (req, res) => {
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/users/login");
+}
+
+router.get("/form", isLoggedIn, (req, res) => {
   res.render("courseform", { data: "" });
 });
 
